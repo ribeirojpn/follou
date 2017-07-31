@@ -1,0 +1,129 @@
+html, body {
+  height:100%;
+  color: rgb(160, 160, 160);
+  background-color: #181818;
+  background-image: linear-gradient(rgba(24, 24, 24, 0.8), rgba(24, 24, 24, 0.8)), url(./../images/background-1.jpg);
+  background-repeat: repeat, no-repeat;
+  background-size: cover;
+  font-family: 'Roboto',sans-serif;
+}
+
+.follou-logo {
+  font-family: 'Play', sans-serif;
+}
+
+.container {
+  position: relative;
+}
+
+.navbar-follou {
+  background-color: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0);
+}
+
+.playlists-box {
+  top: 50px;
+}
+footer {
+    position: fixed;
+    height: 60px;
+    bottom: 0;
+    width: 100%;
+}
+
+.box-auth {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, 50%);
+  width: 90%;
+  height: 400px;
+  padding: 5px;
+  /*border: 1px solid rgba(160, 160, 160,0.4);*/
+}
+
+@media screen and (max-width: 520px) {
+  .box-auth {
+    height: 100%;
+  }
+}
+
+.box-auth h1 {
+  font-size: 80px;
+  margin-bottom: 30px;
+}
+
+.auth-buttons {
+  margin-top: 80px
+}
+
+.auth-buttons p{
+  color: rgba(160, 160, 160,0.8);
+}
+
+.btn-social {
+  margin: auto;
+  width: 250px;
+  text-align: left;
+  font-size: 16px;
+  color: white;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.btn-social:hover, .btn-social:focus,.btn-social:active {
+  color: white;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.btn-social i{
+  width: 45px;
+  float: left;
+  font-size: 24px;
+}
+
+.btn-spotify {
+  background-color: #1DB954;
+}
+.btn-spotify:hover, .btn-spotify:focus, .btn-spotify:active{
+  background-color: #168a3f;
+}
+
+/* playlists */
+.playlists-box {
+  position: absolute;
+  padding: auto;
+  width: 100%;
+}
+.playlists-box ul {
+  position: absolute;
+  padding-left: 3%;
+  padding-right: 3%;
+  transform: translate(3%);
+  margin-left: auto;
+}
+.playlist-item {
+  display:inline-block;
+  background-color: white;
+  width: 180px;
+  height: 180px;
+  margin: 20px 10px;
+}
+.playlist-item a{
+  color: rgb(160, 160, 160);
+  text-decoration: none;
+}
+.playlist-item a:visited, .playlist-item a:hover, .playlist-item a:active{
+  color: rgb(160, 160, 160);
+  text-decoration: none;
+}
+
+.playlist-item img{
+  width: 180px;
+  height: 180px;
+}
+
+/* Following playlist*/
+.follow-input-text {
+  max-width: 500px;
+  margin: auto;
+}
