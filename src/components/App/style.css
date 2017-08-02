@@ -15,12 +15,6 @@
 .playlists-box {
   top: 50px;
 }
-footer {
-    position: fixed;
-    height: 60px;
-    bottom: 0;
-    width: 100%;
-}
 
 .box-auth {
   position: absolute;
