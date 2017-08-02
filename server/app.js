@@ -30,4 +30,9 @@ appRoutes(app)
 playlistsRoutes(app)
 passportConfig()
 
+app.use(function (req, res, next) {
+  res.status(404)
+  res.send('404: Not Found')
+})
+
 export default app

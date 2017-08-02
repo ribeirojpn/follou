@@ -13,6 +13,8 @@ function checkToken (req, res, next) {
   if (req.cookies.spotifyToken && verifyToken(req.cookies.authToken)) {
     return next()
   } else {
-    res.status('401').json('Não autorizado')
+    setTimeout(function () {
+      res.status('401').redirect('/')
+    })
   }
 }

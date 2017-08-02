@@ -19,7 +19,10 @@ Controller.getPlaylists = function (req, res) {
         }
       },
       function (error, response, body) {
-        if (error) throw new Error()
+        if (error) {
+          console.log(error)
+          res.status(500).send('Something failed! Check if you logged before try again.')
+        }
         let playlists = JSON.parse(body).items.map(function (item) {
           let playlist = {
             id: item.id,
@@ -32,7 +35,10 @@ Controller.getPlaylists = function (req, res) {
         })
 
         User.findByIdAndUpdate(userData._id, {$set: {playlists: playlists}}, {new: true}, function (erro, user) {
-          if (erro) throw new Error()
+          if (erro) {
+            console.log(erro)
+            res.status(500).send('Something failed! Check if you logged before try again.')
+          }
           res.send(playlists)
         })
       }
@@ -92,7 +98,10 @@ Controller.getPlaylistById = function (req, res) {
       }
     },
     function (error, response, body) {
-      if (error) throw new Error()
+      if (error) {
+        console.log(error)
+        res.status(500).send('Something failed! Check if you logged before try again.')
+      }
       try {
         let tracks = JSON.parse(body).items.map(function (item) {
           let track = {
@@ -105,7 +114,10 @@ Controller.getPlaylistById = function (req, res) {
         })
 
         getLyrics(tracks, function (erro, success) {
-          if (erro) throw new Error()
+          if (erro) {
+            console.log(erro)
+            res.status(500).send('Something failed! Check if you logged before try again.')
+          }
           res.send(success)
         })
       } catch (erro) {
