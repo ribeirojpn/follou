@@ -6,7 +6,6 @@ import express from 'express'
 import morgan from 'morgan'
 import path from 'path'
 import cookieParser from 'cookie-parser'
-import session from 'express-session'
 import passport from 'passport'
 import bodyParser from 'body-parser'
 
@@ -24,15 +23,7 @@ app.use(express.static(path.resolve(__dirname, '..', 'build')))
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
-app.use(session(
-  {
-    secret: process.env.APP_SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true
-  }
-))
 app.use(passport.initialize())
-app.use(passport.session())
 
 authRoutes(app)
 appRoutes(app)

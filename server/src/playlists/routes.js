@@ -1,5 +1,5 @@
 import playlists from './playlists'
-import localStorage from 'localStorage'
+import { verifyToken } from './../auth/token'
 
 export default function (app) {
   app.get('/api/user/playlists', checkToken, playlists.getPlaylists)
@@ -10,7 +10,7 @@ export default function (app) {
 }
 
 function checkToken (req, res, next) {
-  if (localStorage.getItem('accessToken')) {
+  if (req.cookies.spotifyToken && verifyToken(req.cookies.authToken)) {
     return next()
   } else {
     res.status('401').json('Não autorizado')
