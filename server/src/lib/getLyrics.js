@@ -7,7 +7,7 @@ export default function getLyrics (data, callback) {
 
   async.each(data, (track, call) => {
     if (!track.idGenius) {
-      let nameFiltered = track.name.split(/\W+/ig).join(' ')
+      let nameFiltered = track.name.split(/\(.*\)/ig).join(' ')
       request.get(`https://api.genius.com/search?q=${nameFiltered + '%20' + track.artists[0].name}`,
         {
           'headers': {
@@ -19,7 +19,12 @@ export default function getLyrics (data, callback) {
             console.log(error)
             return
           }
-          track.lyric_url = JSON.parse(body).response.hits[0].result.url
+          console.log(nameFiltered + '%20' + track.artists[0].name, body)
+          try {
+            track.lyric_url = JSON.parse(body).response.hits[0].result.url
+          } catch (erro) {
+            console.log('lyric not found')
+          }
           tracksWithLyrics.push(track)
           call()
         }
