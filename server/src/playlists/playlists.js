@@ -2,7 +2,7 @@ import request from 'request'
 import checkFollower from './../lib/checkFollower'
 import getFollowedPlaylists from './../lib/followedPlaylists'
 import getLyrics from './../lib/getLyrics'
-import { verifyToken } from './../auth/token'
+import { getUserDataFromToken } from './../auth/token'
 import mongoose from 'mongoose'
 
 let Controller = {}
@@ -114,17 +114,6 @@ Controller.getPlaylistById = function (req, res) {
       }
     }
   )
-}
-
-function getUserDataFromToken (authToken) {
-  let userData = {}
-  verifyToken(authToken, function (err, decoded) {
-    if (err) throw new Error('Usuario não autenticado')
-    userData._id = decoded._id
-    userData.spotifyId = decoded.spotifyId
-  })
-
-  return userData
 }
 
 export default Controller

@@ -1,5 +1,5 @@
 import passport from 'passport'
-import { setTokenCookie } from './token'
+import { setTokenCookie, removeTokens } from './token'
 
 export default function (app) {
   app.get('/auth/spotify', passport.authenticate('spotify', {
@@ -11,8 +11,5 @@ export default function (app) {
     failureRedirect: '/login'
   }), setTokenCookie)
 
-  app.get('/logout', function (req, res) {
-    req.logOut()
-    res.redirect('/')
-  })
+  app.get('/logout', removeTokens)
 }

@@ -17,3 +17,20 @@ export function verifyToken (token, callback) {
     return jwt.verify(token, process.env.APP_SECRET)
   }
 }
+
+export function getUserDataFromToken (authToken) {
+  let userData = {}
+  verifyToken(authToken, function (err, decoded) {
+    if (err) throw new Error('Usuario não autenticado')
+    userData._id = decoded._id
+    userData.spotifyId = decoded.spotifyId
+  })
+
+  return userData
+}
+
+export function removeTokens (req, res) {
+  res.clearCookie('spotifyToken')
+  res.clearCookie('authToken')
+  res.redirect('/')
+}
