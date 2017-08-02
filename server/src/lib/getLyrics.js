@@ -16,14 +16,12 @@ export default function getLyrics (data, callback) {
         },
         function (error, response, body) {
           if (error) {
-            console.log(error)
             return
           }
-          console.log(nameFiltered + '%20' + track.artists[0].name, body)
           try {
             track.lyric_url = JSON.parse(body).response.hits[0].result.url
           } catch (erro) {
-            console.log('lyric not found')
+            track.lyric_url = 'lyric not found'
           }
           tracksWithLyrics.push(track)
           call()

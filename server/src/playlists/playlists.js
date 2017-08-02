@@ -9,32 +9,37 @@ let Controller = {}
 const User = mongoose.model('User')
 
 Controller.getPlaylists = function (req, res) {
-  let token = localStorage.getItem('accessToken')
-  request.get(`https://api.spotify.com/v1/me/playlists`,
-    {
-      'auth': {
-        'bearer': token
-      }
-    },
-    function (error, response, body) {
-      if (error) throw new Error()
-      let playlists = JSON.parse(body).items.map(function (item) {
-        let playlist = {
-          id: item.id,
-          url: item.external_urls.spotify,
-          images: item.images,
-          name: item.name,
-          tracks: item.tracks
+  try {
+    let token = localStorage.getItem('accessToken')
+    request.get(`https://api.spotify.com/v1/me/playlists`,
+      {
+        'auth': {
+          'bearer': token
         }
-        return playlist
-      })
+      },
+      function (error, response, body) {
+        if (error) throw new Error()
+        let playlists = JSON.parse(body).items.map(function (item) {
+          let playlist = {
+            id: item.id,
+            url: item.external_urls.spotify,
+            images: item.images,
+            name: item.name,
+            tracks: item.tracks
+          }
+          return playlist
+        })
 
-      User.findByIdAndUpdate(req.user._id, {$set: {playlists: playlists}}, {new: true}, function (erro, user) {
-        if (erro) throw new Error()
-        res.send(playlists)
-      })
-    }
-  )
+        User.findByIdAndUpdate(req.user._id, {$set: {playlists: playlists}}, {new: true}, function (erro, user) {
+          if (erro) throw new Error()
+          res.send(playlists)
+        })
+      }
+    )
+  } catch (erro) {
+    console.log(erro)
+    res.status(500).send('Something failed! Check if you logged before try again.')
+  }
 }
 
 Controller.getFollower = function (req, res) {
@@ -75,20 +80,25 @@ Controller.getPlaylistById = function (req, res) {
     },
     function (error, response, body) {
       if (error) throw new Error()
-      let tracks = JSON.parse(body).items.map(function (item) {
-        let track = {
-          id: item.track.id,
-          name: item.track.name,
-          url: item.track.external_urls.spotify,
-          artists: item.track.artists
-        }
-        return track
-      })
+      try {
+        let tracks = JSON.parse(body).items.map(function (item) {
+          let track = {
+            id: item.track.id,
+            name: item.track.name,
+            url: item.track.external_urls.spotify,
+            artists: item.track.artists
+          }
+          return track
+        })
 
-      getLyrics(tracks, function (erro, success) {
-        if (erro) throw new Error()
-        res.send(success)
-      })
+        getLyrics(tracks, function (erro, success) {
+          if (erro) throw new Error()
+          res.send(success)
+        })
+      } catch (erro) {
+        console.log(erro)
+        res.status(500).send('Something failed! Check if you logged before try again.')
+      }
     }
   )
 }

@@ -4,6 +4,9 @@ import './style.css'
 
 class App extends Component {
   render () {
+      // static propTypes = {}
+      // static defaultProps = {}
+      // state = {}
     const { className, ...props } = this.props
     return (
       <div className={classnames('App', className)} {...props}>
