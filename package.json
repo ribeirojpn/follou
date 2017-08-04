@@ -16,6 +16,7 @@
     "express": "^4.15.2",
     "express-session": "^1.15.1",
     "history": "^4.6.3",
+    "html-entities": "^1.2.1",
     "jsonwebtoken": "^7.4.1",
     "localStorage": "^1.0.3",
     "mongodb": "^2.2.24",

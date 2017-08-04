@@ -33,8 +33,14 @@ class PlaylistWithLyrics extends Component {
 
   render () {
     // colocar um loader para mostrar para o usuario enquanto a playlist é carregada
-    const playlistTracks = this.state.playlist.tracks.map((track) =>
-      <li>{track.name} - {track.artists[0].name} - <a href={track.lyric_url}>Lyric on Genius</a></li>
+    let message = "Lyric on Genius"
+
+    const playlistTracks = this.state.playlist.tracks.map((track) => {
+      if (track.lyric_url === 'lyric-not-found') {
+        return <li>{track.name} - {track.artists[0].name} - Lyric not found :(</li>
+      }
+      return <li>{track.name} - {track.artists[0].name} - <a href={track.lyric_url} target="_blank">Lyric on Genius</a></li>
+      }
     )
     return (
       <div className="lyrics">
