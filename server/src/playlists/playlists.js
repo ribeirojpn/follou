@@ -10,12 +10,13 @@ const User = mongoose.model('User')
 
 Controller.getPlaylists = function (req, res) {
   try {
-    let userData = getUserDataFromToken(req.cookies.authToken)
-    let token = req.cookies.spotifyToken
+    const token = req.headers.authorization.split('Bearer').pop().trim()
+    let userData = getUserDataFromToken(token)
+    const spotifyToken = req.headers.spotify.split('Spotify').pop().trim()
     request.get(`https://api.spotify.com/v1/me/playlists`,
       {
         'auth': {
-          'bearer': token
+          'bearer': spotifyToken
         }
       },
       function (error, response, body) {
@@ -39,7 +40,7 @@ Controller.getPlaylists = function (req, res) {
             console.log(erro)
             res.status(500).send('Something failed! Check if you logged before try again.')
           }
-          res.send(playlists)
+          res.json(playlists)
         })
       }
     )
@@ -61,7 +62,7 @@ Controller.getFollower = function (req, res) {
 
     checkFollower(playlistCheckData, function (err, success) {
       if (err) res.status(404).send('playlist nao encontrada ou nao foi possivel acessar o spotify')
-      res.send({'user': playlistCheckData.follower_id, 'playlist': playlistCheckData.playlist_id, 'isFollowing': success})
+      res.json({'user': playlistCheckData.follower_id, 'playlist': playlistCheckData.playlist_id, 'isFollowing': success})
     })
   } catch (erro) {
     console.log(erro)
@@ -81,7 +82,7 @@ Controller.getFollowedPlaylistsByUser = function (req, res) {
 
     getFollowedPlaylists(followerData, function (err, success) {
       if (err) res.status(404).send('playlist nao encontrada ou nao foi possivel acessar o spotify')
-      res.send(success)
+      res.json(success)
     })
   } catch (erro) {
     console.log(erro)
@@ -118,7 +119,7 @@ Controller.getPlaylistById = function (req, res) {
             console.log(erro)
             res.status(500).send('Something failed! Check if you logged before try again.')
           }
-          res.send(success)
+          res.json(success)
         })
       } catch (erro) {
         console.log(erro)

@@ -6,8 +6,8 @@ export function setTokenCookie (req, res) {
   let spotifyToken = req.user.spotifyToken
   let authToken = jwt.sign({_id: req.user._id, spotifyId: req.user.spotifyId}, process.env.APP_SECRET, {expiresIn: '7d'})
   res.cookie('spotifyToken', spotifyToken)
-  res.cookie('authToken', authToken)
-  res.redirect('/api/user/playlists')
+  res.cookie('accessToken', authToken)
+  res.redirect(`http://localhost:3000/?token=${authToken}&spotifytoken=${spotifyToken}`)
 }
 
 export function verifyToken (token, callback) {

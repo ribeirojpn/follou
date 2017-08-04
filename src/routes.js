@@ -1,10 +1,14 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Switch, BrowserRouter as Router, Route } from 'react-router-dom'
 import App from './components/App'
+import Playlists from './components/Playlists'
 
 const Routes = (props) => (
   <Router {...props}>
-    <Route path="/" component={App} />
+    <Switch>
+      <Route exact path="/" component={App} />
+      <Route path="/playlists" component={Playlists} />
+    </Switch>
   </Router>
 )
 

@@ -10,7 +10,9 @@ export default function (app) {
 }
 
 function checkToken (req, res, next) {
-  if (req.cookies.spotifyToken && verifyToken(req.cookies.authToken)) {
+  const token = req.headers.authorization.split('Bearer').pop().trim()
+  const spotifyToken = req.headers.spotify.split('Spotify').pop().trim()
+  if (spotifyToken && verifyToken(token)) {
     return next()
   } else {
     setTimeout(function () {

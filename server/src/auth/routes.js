@@ -10,6 +10,6 @@ export default function (app) {
     session: false,
     failureRedirect: '/login'
   }), setTokenCookie)
-
+  
   app.get('/logout', removeTokens)
 }

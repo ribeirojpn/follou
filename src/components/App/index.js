@@ -1,13 +1,31 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
+import { Redirect } from 'react-router-dom'
 import './style.css'
 
 class App extends Component {
+  constructor (props) {
+    super(props)
+
+    const search = this.props.location.search
+    const params = new URLSearchParams(search)
+
+    if (params.get('token') || localStorage.getItem('access_token')) {
+      localStorage.setItem('access_token', params.get('token'))
+      localStorage.setItem('spotify_token', params.get('spotifytoken'))
+      this.state = {logged: true}
+    } else {
+      this.state = {logged: false}
+    }
+  }
+
   render () {
-      // static propTypes = {}
-      // static defaultProps = {}
-      // state = {}
     const { className, ...props } = this.props
+    let playlistsLink = { pathname: '/playlists' }
+    console.log(this.state.logged)
+    if (this.state.logged) {
+      return (<Redirect to={playlistsLink} />)
+    }
     return (
       <div className={classnames('App', className)} {...props}>
         <div className="container">
@@ -18,7 +36,7 @@ class App extends Component {
               <p className="text-center">
                 Conecte-se com sua conta do spotify, para que possamos encontrar suas playlists
               </p>
-              <a className="btn btn-default btn-social btn-spotify btn-block" href="/auth/spotify">
+              <a className="btn btn-default btn-social btn-spotify btn-block" href='http://localhost:3000/auth/spotify'>
                 <i className="fa fa-spotify"></i>
                 Sign in with <b>Spotify</b>
               </a>
@@ -29,5 +47,6 @@ class App extends Component {
     )
   }
 }
+
 
 export default App
