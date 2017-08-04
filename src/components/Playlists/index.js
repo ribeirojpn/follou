@@ -4,23 +4,22 @@ import axios from 'axios'
 class Playlists extends Component {
   constructor (props) {
     super(props)
-    console.log(props)
-    this.state = { playlists: [] }
+    this.state = { playlists: [], profile: {} }
     this.userPlaylists = this.userPlaylists.bind(this)
   }
 
   userPlaylists () {
-    console.log('fetch in server')
     axios.get('/api/user/playlists', {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
         'Spotify': `Spotify ${localStorage.getItem('spotify_token')}`
       }
     }).then((response) => {
-      console.log(response)
-      this.setState({ playlists: response.data })
+      this.setState({ playlists: response.data.playlists })
+      this.setState({ profile: response.data.profile })
+      localStorage.setItem('profile', JSON.stringify(response.data.profile))
     }).catch((erro) => {
-      console.log(erro);
+      console.log(erro)
     })
   }
 
@@ -30,12 +29,12 @@ class Playlists extends Component {
 
   render () {
     const listItems = this.state.playlists.map((playlist) =>
-      <li>{playlist.name}</li>
+      <li><a href={`/playlist?id=${playlist.id}&user=${this.state.profile.id}`}>{playlist.name}</a></li>
     )
 
     return (
       <div className="container">
-        <p>Hello Everyone</p>
+        <h2>Suas Playlists</h2>
         <ul>{listItems}</ul>
         <a href="/logout">Desconectar</a>
       </div>

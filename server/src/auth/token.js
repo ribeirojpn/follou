@@ -16,6 +16,7 @@ export function verifyToken (token, callback) {
   }
 }
 
+// precisa pegar, name, email and photo
 export function getUserDataFromToken (authToken) {
   let userData = {}
   verifyToken(authToken, function (err, decoded) {
@@ -26,7 +27,3 @@ export function getUserDataFromToken (authToken) {
 
   return userData
 }
-
-// export function removeTokens (req, res) {
-//   res.redirect('/')
-// }

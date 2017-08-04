@@ -40,7 +40,16 @@ Controller.getPlaylists = function (req, res) {
             console.log(erro)
             res.status(500).send('Something failed! Check if you logged before try again.')
           }
-          res.json(playlists)
+          let data = {
+            profile: {
+              id: user.spotifyId,
+              name: user.name,
+              email: user.email,
+              img_url: user.photo
+            },
+            playlists
+          }
+          res.json(data)
         })
       }
     )
@@ -91,8 +100,8 @@ Controller.getFollowedPlaylistsByUser = function (req, res) {
 }
 
 Controller.getPlaylistById = function (req, res) {
-  let token = req.cookies.spotifyToken
-  request.get(`https://api.spotify.com/v1/users/${req.query.user}/playlists/${req.query.id}/tracks?limit=100`,
+  const token = req.headers.spotify.split('Spotify').pop().trim()
+  request.get(`https://api.spotify.com/v1/users/${req.query.user}/playlists/${req.query.id}`,
     {
       'auth': {
         'bearer': token
@@ -104,7 +113,14 @@ Controller.getPlaylistById = function (req, res) {
         res.status(500).send('Something failed! Check if you logged before try again.')
       }
       try {
-        let tracks = JSON.parse(body).items.map(function (item) {
+        let data = JSON.parse(body)
+        let playlist = {
+          name: data.name,
+          url: data.external_urls.spotify,
+          owner: data.owner.id,
+          owner_url: data.owner.external_urls.spotify
+        }
+        playlist.tracks = data.tracks.items.map(function (item) {
           let track = {
             id: item.track.id,
             name: item.track.name,
@@ -114,12 +130,13 @@ Controller.getPlaylistById = function (req, res) {
           return track
         })
 
-        getLyrics(tracks, function (erro, success) {
+        getLyrics(playlist.tracks, function (erro, success) {
           if (erro) {
             console.log(erro)
             res.status(500).send('Something failed! Check if you logged before try again.')
           }
-          res.json(success)
+          playlist.tracks = success
+          res.json(playlist)
         })
       } catch (erro) {
         console.log(erro)

@@ -38,7 +38,7 @@ class App extends Component {
               <p className="text-center">
                 Conecte-se com sua conta do spotify, para que possamos encontrar suas playlists
               </p>
-              <a className="btn btn-default btn-social btn-spotify btn-block" href='http://localhost:3000/auth/spotify'>
+              <a className="btn btn-default btn-social btn-spotify btn-block" href='/auth/spotify'>
                 <i className="fa fa-spotify"></i>
                 Sign in with <b>Spotify</b>
               </a>
