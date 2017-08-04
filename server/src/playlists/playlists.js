@@ -41,6 +41,7 @@ Controller.getPlaylists = function (req, res) {
             res.status(500).send('Something failed! Check if you logged before try again.')
           }
           let data = {
+            // Profile esta aqui de forma temporaria, ideal que seja passado numa pagina inicial apos logado, como um dashboard
             profile: {
               id: user.spotifyId,
               name: user.name,

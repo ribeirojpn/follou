@@ -2,14 +2,11 @@ html, body {
   height:100%;
   color: rgb(160, 160, 160);
   background-color: #181818;
-  background-image: linear-gradient(rgba(24, 24, 24, 0.8), rgba(24, 24, 24, 0.8)), url(./../images/background-1.jpg);
-  background-repeat: repeat, no-repeat;
-  background-size: cover;
   font-family: 'Roboto',sans-serif;
 }
 
 footer {
-    position: fixed;
+    position: absolute;
     height: 60px;
     bottom: 0;
     width: 100%;

@@ -6,6 +6,7 @@ class Logout extends Component {
     super(props)
     localStorage.removeItem('access_token')
     localStorage.removeItem('spotify_token')
+    localStorage.removeItem('profile')
   }
 
   render () {
