@@ -5,8 +5,6 @@ export function setTokenCookie (req, res) {
   if (!req.user) return res.json(404, {message: 'Problem with auth!'})
   let spotifyToken = req.user.spotifyToken
   let authToken = jwt.sign({_id: req.user._id, spotifyId: req.user.spotifyId}, process.env.APP_SECRET, {expiresIn: '7d'})
-  res.cookie('spotifyToken', spotifyToken)
-  res.cookie('accessToken', authToken)
   res.redirect(`http://localhost:3000/?token=${authToken}&spotifytoken=${spotifyToken}`)
 }
 
@@ -29,8 +27,6 @@ export function getUserDataFromToken (authToken) {
   return userData
 }
 
-export function removeTokens (req, res) {
-  res.clearCookie('spotifyToken')
-  res.clearCookie('authToken')
-  res.redirect('/')
-}
+// export function removeTokens (req, res) {
+//   res.redirect('/')
+// }

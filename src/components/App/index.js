@@ -10,9 +10,11 @@ class App extends Component {
     const search = this.props.location.search
     const params = new URLSearchParams(search)
 
-    if (params.get('token') || localStorage.getItem('access_token')) {
-      localStorage.setItem('access_token', params.get('token'))
-      localStorage.setItem('spotify_token', params.get('spotifytoken'))
+    if ((params.get('token') && params.get('spotifytoken')) || localStorage.getItem('access_token')) {
+      if (params.get('token') && params.get('spotifytoken')) {
+        localStorage.setItem('access_token', params.get('token'))
+        localStorage.setItem('spotify_token', params.get('spotifytoken'))
+      }
       this.state = {logged: true}
     } else {
       this.state = {logged: false}
@@ -47,6 +49,5 @@ class App extends Component {
     )
   }
 }
-
 
 export default App

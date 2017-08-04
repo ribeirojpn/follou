@@ -36,7 +36,8 @@ class Playlists extends Component {
     return (
       <div className="container">
         <p>Hello Everyone</p>
-         <ul>{listItems}</ul>
+        <ul>{listItems}</ul>
+        <a href="/logout">Desconectar</a>
       </div>
     )
   }

@@ -1,5 +1,5 @@
 require('dotenv').config()
-import database from './src/main/database'
+import database from './src/config/database'
 database(process.env.MONGOLAB_URI || 'mongodb://localhost/plfollowers')
 
 import express from 'express'
@@ -10,7 +10,6 @@ import passport from 'passport'
 import bodyParser from 'body-parser'
 
 import passportConfig from './src/auth/passport'
-import appRoutes from './src/main/routes'
 import authRoutes from './src/auth/routes'
 import playlistsRoutes from './src/playlists/routes'
 
@@ -26,13 +25,11 @@ app.use(bodyParser.json())
 app.use(passport.initialize())
 
 authRoutes(app)
-appRoutes(app)
 playlistsRoutes(app)
 passportConfig()
 
-app.use(function (req, res, next) {
-  res.status(404)
-  res.send('404: Not Found')
+app.get('*', function (req, res) {
+  res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'))
 })
 
 export default app

@@ -8,8 +8,6 @@ export default function (app) {
   }))
   app.get('/auth/spotify/callback', passport.authenticate('spotify', {
     session: false,
-    failureRedirect: '/login'
+    failureRedirect: '/'
   }), setTokenCookie)
-  
-  app.get('/logout', removeTokens)
 }
