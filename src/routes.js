@@ -3,6 +3,7 @@ import { Switch, BrowserRouter as Router, Route } from 'react-router-dom'
 import App from './components/App'
 import Playlists from './components/Playlists'
 import Logout from './components/Logout'
+import NotFound from './components/NotFound'
 
 const Routes = (props) => (
   <Router {...props}>
@@ -10,6 +11,7 @@ const Routes = (props) => (
       <Route exact path="/" component={App} />
       <Route path="/playlists" component={Playlists} />
       <Route path="/logout" component={Logout} />
+      <Route path="*" component={NotFound} />
     </Switch>
   </Router>
 )
