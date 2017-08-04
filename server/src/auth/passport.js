@@ -3,6 +3,8 @@ import passport from 'passport'
 import PassportSpotify from 'passport-spotify'
 import mongoose from 'mongoose'
 import userModel from './../user/model'
+import url from 'url'
+import urlServer from './../lib/urlHelper'
 
 const SpotifyStrategy = PassportSpotify.Strategy
 
@@ -14,7 +16,7 @@ export default function () {
   passport.use(new SpotifyStrategy({
     clientID: process.env.SPOTIFY_CLIENT_ID,
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-    callbackURL: 'http://localhost:3000/auth/spotify/callback'
+    callbackURL: url.resolve(urlServer, '/auth/spotify/callback')
   },
   function (accessToken, refreshToken, profile, done) {
     User.findOrCreate({ spotifyId: profile.id }, {name: profile.displayName, photo: profile.photos[0], email: profile._json.email}, function (err, user) {

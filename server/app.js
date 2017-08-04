@@ -1,7 +1,6 @@
 require('dotenv').config()
 import database from './src/config/database'
-database(process.env.MONGOLAB_URI || 'mongodb://localhost/plfollowers')
-
+database(process.env.MONGODB_URI || 'mongodb://localhost/plfollowers')
 import express from 'express'
 import morgan from 'morgan'
 import path from 'path'
