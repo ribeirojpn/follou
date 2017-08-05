@@ -11,3 +11,31 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+.follou-logo {
+  font-family: 'Play', sans-serif;
+}
+
+.navbar-follou {
+  background-color: #181818;
+  border-color: rgba(0, 0, 0, 0);
+}
+
+.content {
+  margin-top: 80px;
+}
+
+@media screen and (max-width: 500px){
+  .content {
+    margin-top: 65px;
+  }
+}
+
+.navbar-header {
+  float: left;
+}
+
+.navbar-right {
+  float: right!important;
+  margin-right: -15px;
+}

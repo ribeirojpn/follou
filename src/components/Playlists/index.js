@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
 import Playlist from './playlist'
+import NavBar from './../NavBar'
 
 class Playlists extends Component {
   constructor (props) {
@@ -48,12 +49,12 @@ class Playlists extends Component {
     )
     return (
       <div className="playlists">
-        <div className="container">
-          <h2>Suas Playlists</h2>
-          {listItems}
-        </div>
-        <div className="container">
-          <a className="text-right" href="/logout">Desconectar</a>
+        <NavBar isConnected={true}/>
+        <div className="content">
+          <div className="container">
+            <h2 className="text-center">Suas playlists</h2>
+            {listItems}
+          </div>
         </div>
       </div>
     )
