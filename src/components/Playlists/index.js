@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
+import Playlist from './playlist'
 
 class Playlists extends Component {
   constructor (props) {
@@ -16,7 +17,7 @@ class Playlists extends Component {
         'Spotify': `Spotify ${localStorage.getItem('spotify_token')}`
       }
     }).then((response) => {
-      if (response.status === '401') {
+      if (response.status === 401) {
         localStorage.removeItem('access_token')
         localStorage.removeItem('spotify_token')
         localStorage.removeItem('profile')
@@ -36,19 +37,24 @@ class Playlists extends Component {
   }
 
   render () {
-    const listItems = this.state.playlists.map((playlist) =>
-      <li><a href={`/playlist?id=${playlist.id}&user=${this.state.profile.id}`}>{playlist.name}</a></li>
-    )
+    console.log(this.state.playlists)
+
     if (this.state.profile === null) {
       let home = { pathname: '/' }
       return (<Redirect to={home} />)
     }
-
+    const listItems = this.state.playlists.map((playlist) =>
+      <Playlist playlistData={playlist}/>
+    )
     return (
-      <div className="container">
-        <h2>Suas Playlists</h2>
-        <ul className="list-unstyled">{listItems}</ul>
-        <a href="/logout">Desconectar</a>
+      <div className="playlists">
+        <div className="container">
+          <h2>Suas Playlists</h2>
+          {listItems}
+        </div>
+        <div className="container">
+          <a className="text-right" href="/logout">Desconectar</a>
+        </div>
       </div>
     )
   }

@@ -31,7 +31,8 @@ Controller.getPlaylists = function (req, res) {
               url: item.external_urls.spotify,
               images: item.images,
               name: item.name,
-              tracks: item.tracks
+              tracks: item.tracks,
+              owner: {id: item.owner.id, name: item.owner.name}
             }
             return playlist
           })
