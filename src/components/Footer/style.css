@@ -1,0 +1,8 @@
+footer a {
+  text-decoration: none;
+  color: rgb(240, 240, 240);
+}
+
+footer a:hover {
+  color: #FFFFFF;
+}
