@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { Redirect } from 'react-router-dom'
 import NavBar from './../NavBar'
 
 class PlaylistWithLyrics extends Component {
@@ -11,7 +12,9 @@ class PlaylistWithLyrics extends Component {
     this.state = {
       searchUser: params.get('user'),
       searchId: params.get('id'),
-      playlist: { tracks: [] }}
+      playlist: { tracks: [] },
+      isConnected: true
+    }
     this.getPlaylist = this.getPlaylist.bind(this)
   }
 
@@ -24,7 +27,7 @@ class PlaylistWithLyrics extends Component {
     }).then((response) => {
       this.setState({ playlist: response.data })
     }).catch((erro) => {
-      console.log(erro)
+      this.setState({isConnected: false})
     })
   }
 
@@ -34,6 +37,10 @@ class PlaylistWithLyrics extends Component {
 
   render () {
     // colocar um loader para mostrar para o usuario enquanto a playlist é carregada
+    if (!this.state.isConnected) {
+      let logout = { pathname: '/logout' }
+      return (<Redirect to={logout} />)
+    }
     const playlistTracks = this.state.playlist.tracks.map((track) => {
       if (track.lyric_url === 'lyric-not-found') {
         return <li>{track.name} - {track.artists[0].name} - Lyric not found :(</li>

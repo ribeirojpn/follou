@@ -6,23 +6,16 @@ import './style.css'
 class App extends Component {
   constructor (props) {
     super(props)
-    const search = this.props.location.search
-    const params = new URLSearchParams(search)
-
-    if ((params.get('token') && params.get('spotifytoken')) || localStorage.getItem('access_token')) {
-      if (params.get('token') && params.get('spotifytoken')) {
-        localStorage.setItem('access_token', params.get('token'))
-        localStorage.setItem('spotify_token', params.get('spotifytoken'))
-      }
-      this.state = {logged: true}
+    if (localStorage.getItem('access_token')) {
+      this.state = {loggedIn: true}
     } else {
-      this.state = {logged: false}
+      this.state = {loggedIn: false}
     }
   }
 
   render () {
     let playlistsLink = { pathname: '/playlists' }
-    if (this.state.logged) {
+    if (this.state.loggedIn) {
       return (<Redirect to={playlistsLink} />)
     }
     return (

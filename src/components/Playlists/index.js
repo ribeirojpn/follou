@@ -18,32 +18,22 @@ class Playlists extends Component {
         'Spotify': `Spotify ${localStorage.getItem('spotify_token')}`
       }
     }).then((response) => {
-      console.log(response.status, response)
-      if (response.status === 401 || response.status === 500) {
-        localStorage.removeItem('access_token')
-        localStorage.removeItem('spotify_token')
-        localStorage.removeItem('profile')
-        this.setState({isConnected: false})
-      } else {
-        this.setState({ playlists: response.data.playlists })
-        this.setState({ profile: response.data.profile })
-        localStorage.setItem('profile', JSON.stringify(response.data.profile))
-      }
+      this.setState({ playlists: response.data.playlists })
+      this.setState({ profile: response.data.profile })
+      localStorage.setItem('profile', JSON.stringify(response.data.profile))
     }).catch((erro) => {
-      console.log(erro)
+      this.setState({isConnected: false})
     })
   }
 
   componentDidMount() {
-    this.userPlaylists()
+      this.userPlaylists()
   }
 
   render () {
-    console.log(this.state.playlists)
-
     if (!this.state.isConnected) {
-      let home = { pathname: '/' }
-      return (<Redirect to={home} />)
+      let logout = { pathname: '/logout' }
+      return (<Redirect to={logout} />)
     }
     const listItems = this.state.playlists.map((playlist) =>
       <Playlist playlistData={playlist}/>

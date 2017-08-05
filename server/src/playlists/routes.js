@@ -10,13 +10,15 @@ export default function (app) {
 }
 
 function checkToken (req, res, next) {
-  const token = req.headers.authorization.split('Bearer').pop().trim()
-  const spotifyToken = req.headers.spotify.split('Spotify').pop().trim()
-  if (spotifyToken && verifyToken(token)) {
-    return next()
-  } else {
-    setTimeout(function () {
-      res.status('401').redirect('/')
-    })
+  try {
+    const token = req.headers.authorization.split('Bearer').pop().trim()
+    const spotifyToken = req.headers.spotify.split('Spotify').pop().trim()
+    if (spotifyToken && verifyToken(token)) {
+      return next()
+    } else {
+      res.status('401').send('Nao autorizado')
+    }
+  } catch (erro) {
+    res.status('401').send('Nao autorizado')
   }
 }
