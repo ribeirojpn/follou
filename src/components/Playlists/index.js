@@ -7,7 +7,7 @@ import NavBar from './../NavBar'
 class Playlists extends Component {
   constructor (props) {
     super(props)
-    this.state = { playlists: [], profile: {} }
+    this.state = { playlists: [], profile: {}, isConnected: true }
     this.userPlaylists = this.userPlaylists.bind(this)
   }
 
@@ -18,11 +18,12 @@ class Playlists extends Component {
         'Spotify': `Spotify ${localStorage.getItem('spotify_token')}`
       }
     }).then((response) => {
-      if (response.status === 401) {
+      console.log(response.status, response)
+      if (response.status === 401 || response.status === 500) {
         localStorage.removeItem('access_token')
         localStorage.removeItem('spotify_token')
         localStorage.removeItem('profile')
-        this.setState({profile: null})
+        this.setState({isConnected: false})
       } else {
         this.setState({ playlists: response.data.playlists })
         this.setState({ profile: response.data.profile })
@@ -40,7 +41,7 @@ class Playlists extends Component {
   render () {
     console.log(this.state.playlists)
 
-    if (this.state.profile === null) {
+    if (!this.state.isConnected) {
       let home = { pathname: '/' }
       return (<Redirect to={home} />)
     }
@@ -49,7 +50,7 @@ class Playlists extends Component {
     )
     return (
       <div className="playlists">
-        <NavBar isConnected={true}/>
+        <NavBar isConnected={this.state.isConnected}/>
         <div className="content">
           <div className="container">
             <h2 className="text-center">Suas playlists</h2>

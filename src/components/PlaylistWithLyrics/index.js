@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import NavBar from './../NavBar'
 
 class PlaylistWithLyrics extends Component {
   constructor (props) {
@@ -42,9 +43,12 @@ class PlaylistWithLyrics extends Component {
     )
     return (
       <div className="lyrics">
-        <div className="container">
-          <h1>{this.state.playlist.name}</h1>
-          <ul className="list-unstyled">{playlistTracks}</ul>
+        <NavBar isConnected={true}/>
+        <div className="content">
+          <div className="container">
+            <h1>{this.state.playlist.name}</h1>
+            <ul className="list-unstyled">{playlistTracks}</ul>
+          </div>
         </div>
       </div>
     )
