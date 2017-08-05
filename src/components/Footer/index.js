@@ -7,7 +7,7 @@ class Footer extends Component {
       <footer className="footer">
         <div className="container">
           <p className="text-center">
-            Made with <i className="fa fa-heart" aria-hidden="true"></i> by <a href="https://github.com/ribeirojpn">@RibeiroJPN</a>
+            Made with <i className="fa fa-heart" aria-hidden="true"></i> by <a href="https://twitter.com/ribeirojpn">@RibeiroJPN</a>
             <br />
             Alpha v0.3.2
             (numero qualquer pra deixar claro que ainda ta bugado)
