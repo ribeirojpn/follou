@@ -24,34 +24,38 @@ Controller.getPlaylists = function (req, res) {
           console.log(error)
           res.status(500).send('Something failed! Check if you logged before try again.')
         }
-        let playlists = JSON.parse(body).items.map(function (item) {
-          let playlist = {
-            id: item.id,
-            url: item.external_urls.spotify,
-            images: item.images,
-            name: item.name,
-            tracks: item.tracks
-          }
-          return playlist
-        })
+        try {
+          let playlists = JSON.parse(body).items.map(function (item) {
+            let playlist = {
+              id: item.id,
+              url: item.external_urls.spotify,
+              images: item.images,
+              name: item.name,
+              tracks: item.tracks
+            }
+            return playlist
+          })
 
-        User.findByIdAndUpdate(userData._id, {$set: {playlists: playlists}}, {new: true}, function (erro, user) {
-          if (erro) {
-            console.log(erro)
-            res.status(500).send('Something failed! Check if you logged before try again.')
-          }
-          let data = {
-            // Profile esta aqui de forma temporaria, ideal que seja passado numa pagina inicial apos logado, como um dashboard
-            profile: {
-              id: user.spotifyId,
-              name: user.name,
-              email: user.email,
-              img_url: user.photo
-            },
-            playlists
-          }
-          res.json(data)
-        })
+          User.findByIdAndUpdate(userData._id, {$set: {playlists: playlists}}, {new: true}, function (erro, user) {
+            if (erro) {
+              console.log(erro)
+              res.status(500).send('Something failed! Check if you logged before try again.')
+            }
+            let data = {
+              // Profile esta aqui de forma temporaria, ideal que seja passado numa pagina inicial apos logado, como um dashboard
+              profile: {
+                id: user.spotifyId,
+                name: user.name,
+                email: user.email,
+                img_url: user.photo
+              },
+              playlists
+            }
+            res.json(data)
+          })
+        } catch (erro) {
+          res.status(401).json("Usuario não autenticado")
+        }
       }
     )
   } catch (erro) {

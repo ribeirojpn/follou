@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+import { Redirect } from 'react-router-dom'
 
 class Playlists extends Component {
   constructor (props) {
@@ -15,9 +16,16 @@ class Playlists extends Component {
         'Spotify': `Spotify ${localStorage.getItem('spotify_token')}`
       }
     }).then((response) => {
-      this.setState({ playlists: response.data.playlists })
-      this.setState({ profile: response.data.profile })
-      localStorage.setItem('profile', JSON.stringify(response.data.profile))
+      if (response.status === '401') {
+        localStorage.removeItem('access_token')
+        localStorage.removeItem('spotify_token')
+        localStorage.removeItem('profile')
+        this.setState({profile: null})
+      } else {
+        this.setState({ playlists: response.data.playlists })
+        this.setState({ profile: response.data.profile })
+        localStorage.setItem('profile', JSON.stringify(response.data.profile))
+      }
     }).catch((erro) => {
       console.log(erro)
     })
@@ -31,6 +39,10 @@ class Playlists extends Component {
     const listItems = this.state.playlists.map((playlist) =>
       <li><a href={`/playlist?id=${playlist.id}&user=${this.state.profile.id}`}>{playlist.name}</a></li>
     )
+    if (this.state.profile === null) {
+      let home = { pathname: '/' }
+      return (<Redirect to={home} />)
+    }
 
     return (
       <div className="container">
