@@ -4,6 +4,7 @@ import async from 'async'
 import { AllHtmlEntities as Entities } from 'html-entities'
 const entities = new Entities()
 
+// check this with websockets
 export default function getLyrics (data, callback) {
   let tracksWithLyrics = []
 
@@ -18,7 +19,7 @@ export default function getLyrics (data, callback) {
         },
         function (error, response, body) {
           if (error) {
-            return
+            track.lyric_url = 'lyric-not-found'
           }
           try {
             track.lyric_url = JSON.parse(body).response.hits[0].result.url

@@ -13,7 +13,7 @@ Controller.getPlaylists = function (req, res) {
     const token = req.headers.authorization.split('Bearer').pop().trim()
     let userData = getUserDataFromToken(token)
     const spotifyToken = req.headers.spotify.split('Spotify').pop().trim()
-    request.get(`https://api.spotify.com/v1/me/playlists`,
+    request.get(`https://api.spotify.com/v1/me/playlists?limit=50`,
       {
         'auth': {
           'bearer': spotifyToken
