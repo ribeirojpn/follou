@@ -24,7 +24,8 @@ class App extends Component {
           <div className="container">
             <div className="box-auth">
               <h1 className="text-center follou-logo">Follou</h1>
-              <h3 className="text-center">Descubra quais das suas playlists outros usuarios seguem</h3>
+              <h3 className="text-center">Facilitando sua vida...<br/>
+               <strike>Pelo menos na hora de cantar junto com a musica</strike></h3>
               <div className="auth-buttons">
                 <p className="text-center">
                   Conecte-se com sua conta do spotify, para que possamos encontrar suas playlists
