@@ -1,0 +1,23 @@
+.artist-name {
+  padding-left: 150px;
+}
+
+.lyrics h1 {
+  margin-bottom: 40px
+}
+
+@media screen and (max-width: 768px) {
+  .artist-name {
+    visibility: hidden;
+    clear: both;
+    float: left;
+    margin: 10px auto 5px 20px;
+    width: 28%;
+    display: none;
+  }
+}
+
+.track-item {
+  border-top: 1px solid #656565;
+  padding-top: 10px;
+}

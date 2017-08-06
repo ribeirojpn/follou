@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
 import NavBar from './../NavBar'
+import Track from './track'
 
 class PlaylistWithLyrics extends Component {
   constructor (props) {
@@ -37,23 +38,34 @@ class PlaylistWithLyrics extends Component {
 
   render () {
     // colocar um loader para mostrar para o usuario enquanto a playlist é carregada
+    let tracksSorted = this.state.playlist.tracks.sort(function (a,b) {
+      let trackA = a.name.toUpperCase();
+      let trackB = b.name.toUpperCase();
+      if (trackA < trackB) {
+        return -1;
+      }
+      if (trackA > trackB) {
+        return 1;
+      }
+
+      return 0;
+    })
+
     if (!this.state.isConnected) {
       let logout = { pathname: '/logout' }
       return (<Redirect to={logout} />)
     }
-    const playlistTracks = this.state.playlist.tracks.map((track) => {
-      if (track.lyric_url === 'lyric-not-found') {
-        return <li>{track.name} - {track.artists[0].name} - Lyric not found :(</li>
-      }
-      return <li>{track.name} - {track.artists[0].name} - <a href={track.lyric_url} target="_blank">Lyric on Genius</a></li>
-      }
-    )
+
+    const playlistTracks = tracksSorted.map((track) => {
+      return <Track track={track}/>
+    })
+
     return (
       <div className="lyrics">
         <NavBar isConnected={true}/>
         <div className="content">
           <div className="container">
-            <h1>{this.state.playlist.name}</h1>
+            <h1 className="text-center">{this.state.playlist.name}</h1>
             <ul className="list-unstyled">{playlistTracks}</ul>
           </div>
         </div>
