@@ -31,7 +31,6 @@ class PlaylistWithLyrics extends Component {
     }).then((response) => {
       this.setState({ playlist: response.data, loaded: true })
     }).catch((erro) => {
-      console.log('Erro causou logout de usuario:', erro)
       this.setState({isConnected: false})
     })
   }
