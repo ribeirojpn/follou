@@ -1,0 +1,22 @@
+export default {
+  lines: 13,
+  length: 0,
+  width: 23,
+  radius: 60,
+  scale: 0.5,
+  corners: 1,
+  color: '#FFF',
+  opacity: 0,
+  rotate: 0,
+  direction: 1,
+  speed: 1,
+  trail: 80,
+  fps: 20,
+  zIndex: 2e9,
+  className: 'spinner',
+  top: '50%',
+  left: '50%',
+  shadow: false,
+  hwaccel: false,
+  position: 'absolute' // Element positioning
+}

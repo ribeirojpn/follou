@@ -4,7 +4,7 @@ import './style.css'
 class Track extends Component {
   render () {
     let track = this.props.track
-    let lyricUrl = <a href={track.lyric_url}>Letra no Genius</a>
+    let lyricUrl = <a href={track.lyric_url} target="_blank">Letra no Genius</a>
     if (track.lyric_url === 'lyric-not-found') {
       lyricUrl = <p>Letra não encontrada :(</p>
     }

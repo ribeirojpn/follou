@@ -3,6 +3,8 @@ import axios from 'axios'
 import { Redirect } from 'react-router-dom'
 import NavBar from './../NavBar'
 import Track from './track'
+import Loader from 'react-loader'
+import spinerConfig from './spinerConfig'
 
 class PlaylistWithLyrics extends Component {
   constructor (props) {
@@ -14,7 +16,8 @@ class PlaylistWithLyrics extends Component {
       searchUser: params.get('user'),
       searchId: params.get('id'),
       playlist: { tracks: [] },
-      isConnected: true
+      isConnected: true,
+      loaded: false
     }
     this.getPlaylist = this.getPlaylist.bind(this)
   }
@@ -26,8 +29,9 @@ class PlaylistWithLyrics extends Component {
         'Spotify': `Spotify ${localStorage.getItem('spotify_token')}`
       }
     }).then((response) => {
-      this.setState({ playlist: response.data })
+      this.setState({ playlist: response.data, loaded: true })
     }).catch((erro) => {
+      console.log('Erro causou logout de usuario:', erro)
       this.setState({isConnected: false})
     })
   }
@@ -37,6 +41,7 @@ class PlaylistWithLyrics extends Component {
   }
 
   render () {
+    // add spinner loader
     // colocar um loader para mostrar para o usuario enquanto a playlist é carregada
     let tracksSorted = this.state.playlist.tracks.sort(function (a,b) {
       let trackA = a.name.toUpperCase();
@@ -65,8 +70,21 @@ class PlaylistWithLyrics extends Component {
         <NavBar isConnected={true}/>
         <div className="content">
           <div className="container">
-            <h1 className="text-center">{this.state.playlist.name}</h1>
-            <ul className="list-unstyled">{playlistTracks}</ul>
+            <Loader loaded={this.state.loaded} options={spinerConfig} className="spinner">
+              <h1 className="text-center">{this.state.playlist.name}</h1>
+              <div className="row track-head">
+                <div className="col-sm-4 col-xs-6 text-left">
+                  <p>Titulo</p>
+                </div>
+                <div className="col-sm-4 artist-name text-left">
+                  <p>Artista</p>
+                </div>
+                <div className="col-sm-4 col-xs-6 text-right">
+                  Letra
+                </div>
+              </div>
+              <ul className="list-unstyled">{playlistTracks}</ul>
+            </Loader>
           </div>
         </div>
       </div>

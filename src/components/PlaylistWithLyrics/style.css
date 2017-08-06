@@ -17,7 +17,31 @@
   }
 }
 
+.track-head {
+  padding-top: 10px;
+  color: #ACACAC;
+}
+
 .track-item {
   border-top: 1px solid #656565;
   padding-top: 10px;
+}
+
+.track-item a {
+  text-decoration: none;
+  color: rgb(240, 240, 240);
+}
+
+.track-item a:hover {
+  color: #FFFFFF;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, 50%);
+  width: 90%;
+  height: 400px;
+  padding: 5px;
 }
