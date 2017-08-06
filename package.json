@@ -23,6 +23,7 @@
     "mongoose": "^4.8.6",
     "mongoose-findorcreate": "^1.0.0",
     "morgan": "^1.8.2",
+    "newrelic": "^2.0.2",
     "passport": "^0.3.2",
     "passport-spotify": "^0.3.1",
     "querystring": "^0.2.0",
