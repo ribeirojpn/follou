@@ -4,7 +4,7 @@ import './style.css'
 class Playlist extends Component {
   render () {
     const playlist = this.props.playlistData
-    let imgUrl = './images/playlist.png'
+    let imgUrl = require('./images/playlist.png')
     if (playlist.images.length > 0){
       imgUrl = playlist.images[0].url
     }
