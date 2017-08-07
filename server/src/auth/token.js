@@ -1,7 +1,8 @@
-require('dotenv').config()
 import jwt from 'jsonwebtoken'
 import url from 'url'
 import urlServer from './../lib/urlHelper'
+import dotenv from 'dotenv'
+dotenv.config()
 
 export function setTokenCookie (req, res) {
   if (!req.user) return res.json(404, {message: 'Problem with auth!'})

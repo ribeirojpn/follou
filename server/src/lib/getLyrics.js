@@ -1,11 +1,12 @@
-require('dotenv').config()
 import request from 'request'
 import async from 'async'
 import { AllHtmlEntities as Entities } from 'html-entities'
+import dotenv from 'dotenv'
+dotenv.config()
 const entities = new Entities()
 
 // check this with websockets
-export default function getLyrics (data, callback) {
+function getLyrics (data, callback) {
   let tracksWithLyrics = []
 
   async.each(data, (track, call) => {
@@ -46,3 +47,5 @@ export default function getLyrics (data, callback) {
     callback(null, tracksWithLyrics)
   })
 }
+
+export default getLyrics

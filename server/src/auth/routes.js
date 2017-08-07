@@ -1,5 +1,5 @@
 import passport from 'passport'
-import { setTokenCookie, removeTokens } from './token'
+import { setTokenCookie } from './token'
 
 export default function (app) {
   app.get('/auth/spotify', passport.authenticate('spotify', {

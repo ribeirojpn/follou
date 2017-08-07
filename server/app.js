@@ -1,7 +1,6 @@
-require('dotenv').config()
+import dotenv from 'dotenv'
 import 'newrelic'
 import database from './src/config/database'
-database(process.env.MONGODB_URI || 'mongodb://localhost/plfollowers')
 import express from 'express'
 import morgan from 'morgan'
 import path from 'path'
@@ -12,6 +11,9 @@ import bodyParser from 'body-parser'
 import passportConfig from './src/auth/passport'
 import authRoutes from './src/auth/routes'
 import playlistsRoutes from './src/playlists/routes'
+
+dotenv.config()
+database(process.env.MONGODB_URI || 'mongodb://localhost/plfollowers')
 
 const app = express()
 
