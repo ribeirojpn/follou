@@ -35,24 +35,24 @@ class PlaylistWithLyrics extends Component {
     })
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.getPlaylist()
   }
 
   render () {
     // add spinner loader
     // colocar um loader para mostrar para o usuario enquanto a playlist é carregada
-    let tracksSorted = this.state.playlist.tracks.sort(function (a,b) {
-      let trackA = a.name.toUpperCase();
-      let trackB = b.name.toUpperCase();
+    let tracksSorted = this.state.playlist.tracks.sort(function (a, b) {
+      let trackA = a.name.toUpperCase()
+      let trackB = b.name.toUpperCase()
       if (trackA < trackB) {
-        return -1;
+        return -1
       }
       if (trackA > trackB) {
-        return 1;
+        return 1
       }
 
-      return 0;
+      return 0
     })
 
     if (!this.state.isConnected) {
@@ -61,28 +61,28 @@ class PlaylistWithLyrics extends Component {
     }
 
     const playlistTracks = tracksSorted.map((track) => {
-      return <Track track={track}/>
+      return <Track track={track} />
     })
 
     return (
-      <div className="lyrics">
-        <NavBar isConnected={true}/>
-        <div className="content">
-          <div className="container">
-            <Loader loaded={this.state.loaded} options={spinerConfig} className="spinner">
-              <h1 className="text-center">{this.state.playlist.name}</h1>
-              <div className="row track-head">
-                <div className="col-sm-4 col-xs-6 text-left">
+      <div className='lyrics'>
+        <NavBar isConnected />
+        <div className='content'>
+          <div className='container'>
+            <Loader loaded={this.state.loaded} options={spinerConfig} className='spinner'>
+              <h1 className='text-center'>{this.state.playlist.name}</h1>
+              <div className='row track-head'>
+                <div className='col-sm-4 col-xs-6 text-left'>
                   <p>Titulo</p>
                 </div>
-                <div className="col-sm-4 artist-name text-left">
+                <div className='col-sm-4 artist-name text-left'>
                   <p>Artista</p>
                 </div>
-                <div className="col-sm-4 col-xs-6 text-right">
+                <div className='col-sm-4 col-xs-6 text-right'>
                   Letra
                 </div>
               </div>
-              <ul className="list-unstyled">{playlistTracks}</ul>
+              <ul className='list-unstyled'>{playlistTracks}</ul>
             </Loader>
           </div>
         </div>

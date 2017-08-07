@@ -26,8 +26,8 @@ class Playlists extends Component {
     })
   }
 
-  componentDidMount() {
-      this.userPlaylists()
+  componentDidMount () {
+    this.userPlaylists()
   }
 
   render () {
@@ -36,14 +36,14 @@ class Playlists extends Component {
       return (<Redirect to={logout} />)
     }
     const listItems = this.state.playlists.map((playlist) =>
-      <Playlist playlistData={playlist}/>
+      <Playlist playlistData={playlist} />
     )
     return (
-      <div className="playlists">
-        <NavBar isConnected={this.state.isConnected}/>
-        <div className="content">
-          <div className="container">
-            <h2 className="text-center">Suas playlists</h2>
+      <div className='playlists'>
+        <NavBar isConnected={this.state.isConnected} />
+        <div className='content'>
+          <div className='container'>
+            <h2 className='text-center'>Suas playlists</h2>
             {listItems}
           </div>
         </div>

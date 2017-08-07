@@ -6,19 +6,19 @@ class NavBar extends Component {
     let menuContent
     if (this.props.isConnected) {
       menuContent = (
-        <div className="navbar-text navbar-right"><a className="navbar-link" href="/logout">Logout</a></div>
+        <div className='navbar-text navbar-right'><a className='navbar-link' href='/logout'>Logout</a></div>
       )
     } else {
       menuContent = (
-        <div className="navbar-text navbar-right"><a className="navbar-link" href="/">Login</a></div>
+        <div className='navbar-text navbar-right'><a className='navbar-link' href='/'>Login</a></div>
       )
     }
 
     return (
-      <nav className="navbar navbar-inverse navbar-fixed-top navbar-follou">
-        <div className="container">
-          <div className="navbar-header">
-            <a href="/" className="navbar-brand follou-logo">Follou</a>
+      <nav className='navbar navbar-inverse navbar-fixed-top navbar-follou'>
+        <div className='container'>
+          <div className='navbar-header'>
+            <a href='/' className='navbar-brand follou-logo'>Follou</a>
           </div>
           {menuContent}
         </div>

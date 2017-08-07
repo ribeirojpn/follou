@@ -1,4 +1,5 @@
 require('dotenv').config()
+import 'newrelic'
 import database from './src/config/database'
 database(process.env.MONGODB_URI || 'mongodb://localhost/plfollowers')
 import express from 'express'
@@ -7,7 +8,6 @@ import path from 'path'
 import cookieParser from 'cookie-parser'
 import passport from 'passport'
 import bodyParser from 'body-parser'
-import 'newrelic'
 
 import passportConfig from './src/auth/passport'
 import authRoutes from './src/auth/routes'

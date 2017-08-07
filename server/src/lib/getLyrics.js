@@ -23,13 +23,13 @@ export default function getLyrics (data, callback) {
           }
           try {
             let hits = JSON.parse(body).response.hits
-            for (let i = 0;i < hits.length; i++){
-              if (hits[i].result.url.endsWith('lyrics')){
+            for (let i = 0; i < hits.length; i++) {
+              if (hits[i].result.url.endsWith('lyrics')) {
                 track.lyric_url = hits[i].result.url
                 break
               }
             }
-            if (!track.lyric_url){
+            if (!track.lyric_url) {
               track.lyric_url = 'lyric-not-found'
             }
           } catch (erro) {

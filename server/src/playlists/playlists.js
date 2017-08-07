@@ -55,7 +55,7 @@ Controller.getPlaylists = function (req, res) {
             res.json(data)
           })
         } catch (erro) {
-          res.status(401).json("Usuario não autenticado")
+          res.status(401).json('Usuario não autenticado')
         }
       }
     )
