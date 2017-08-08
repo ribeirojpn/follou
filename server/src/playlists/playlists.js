@@ -107,6 +107,9 @@ Controller.getFollowedPlaylistsByUser = function (req, res) {
 
 Controller.getPlaylistById = function (req, res) {
   const token = req.headers.spotify.split('Spotify').pop().trim()
+  let playlist
+  let nextRequest
+
   request.get(`https://api.spotify.com/v1/users/${req.query.user}/playlists/${req.query.id}`,
     {
       'auth': {
@@ -120,12 +123,14 @@ Controller.getPlaylistById = function (req, res) {
       }
       try {
         let data = JSON.parse(body)
-        let playlist = {
+        playlist = {
           name: data.name,
           url: data.external_urls.spotify,
           owner: data.owner.id,
-          owner_url: data.owner.external_urls.spotify
+          owner_url: data.owner.external_urls.spotify,
+          tracks: []
         }
+
         playlist.tracks = data.tracks.items.map(function (item) {
           let track = {
             id: item.track.id,
@@ -136,17 +141,76 @@ Controller.getPlaylistById = function (req, res) {
           return track
         })
 
-        getLyrics(playlist.tracks, function (erro, success) {
-          if (erro) {
-            console.log(erro)
-            res.status(500).send('Something failed! Check if you logged before try again.')
-          }
-          playlist.tracks = success
-          res.json(playlist)
-        })
+        nextRequest = data.tracks.next
+        if (nextRequest) {
+          getNextTracks(nextRequest, playlist.tracks, token, function (erro, success) {
+            if (erro) {
+              console.log(erro)
+              res.status(500).send('Something failed! Check if you logged before try again.')
+            }
+            playlist.tracks = success
+            getLyrics(playlist.tracks, function (erro, success) {
+              if (erro) {
+                console.log(erro)
+                res.status(500).send('Something failed! Check if you logged before try again.')
+              }
+              playlist.tracks = success
+              res.json(playlist)
+            })
+          })
+        } else {
+          getLyrics(playlist.tracks, function (erro, success) {
+            if (erro) {
+              console.log(erro)
+              res.status(500).send('Something failed! Check if you logged before try again.')
+            }
+            playlist.tracks = success
+            res.json(playlist)
+          })
+        }
       } catch (erro) {
         console.log(erro)
         res.status(500).send('Something failed! Check if you logged before try again.')
+      }
+    }
+  )
+}
+
+function getNextTracks (nextRequest, tracks, token, callback) {
+  request.get(nextRequest,
+    {
+      'auth': {
+        'bearer': token
+      }
+    },
+    function (error, response, body) {
+      if (error) {
+        console.log(error)
+        callback(error, null)
+      }
+      try {
+        let data = JSON.parse(body)
+        tracks = tracks.concat(
+          data.items.map(function (item) {
+            let track = {
+              id: item.track.id,
+              name: item.track.name,
+              url: item.track.external_urls.spotify,
+              artists: item.track.artists
+            }
+            return track
+          })
+        )
+
+        nextRequest = data.next
+        console.log('got: ', tracks.length)
+        if (nextRequest) {
+          getNextTracks(nextRequest, tracks, token, callback)
+        } else {
+          callback(null, tracks)
+        }
+      } catch (erro) {
+        callback(erro, null)
       }
     }
   )
