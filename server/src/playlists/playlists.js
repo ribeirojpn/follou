@@ -13,6 +13,7 @@ Controller.getPlaylists = function (req, res) {
     const token = req.headers.authorization.split('Bearer').pop().trim()
     let userData = getUserDataFromToken(token)
     const spotifyToken = req.headers.spotify.split('Spotify').pop().trim()
+    let nextRequest
     request.get(`https://api.spotify.com/v1/me/playlists?limit=50`,
       {
         'auth': {
@@ -25,7 +26,8 @@ Controller.getPlaylists = function (req, res) {
           res.status(500).send('Something failed! Check if you logged before try again.')
         }
         try {
-          let playlists = JSON.parse(body).items.map(function (item) {
+          let data = JSON.parse(body)
+          let playlists = data.items.map(function (item) {
             let playlist = {
               id: item.id,
               url: item.external_urls.spotify,
@@ -37,23 +39,34 @@ Controller.getPlaylists = function (req, res) {
             return playlist
           })
 
-          User.findByIdAndUpdate(userData._id, {$set: {playlists: playlists}}, {new: true}, function (erro, user) {
-            if (erro) {
-              console.log(erro)
-              res.status(500).send('Something failed! Check if you logged before try again.')
-            }
-            let data = {
-              // Profile esta aqui de forma temporaria, ideal que seja passado numa pagina inicial apos logado, como um dashboard
-              profile: {
-                id: user.spotifyId,
-                name: user.name,
-                email: user.email,
-                img_url: user.photo
-              },
-              playlists
-            }
-            res.json(data)
-          })
+          nextRequest = data.next
+          if (nextRequest) {
+            getNextPlaylists(nextRequest, playlists, spotifyToken, function (erro, success) {
+              if (erro) {
+                console.log(erro)
+                res.status(500).send('Something failed! Check if you logged before try again.')
+              }
+              playlists = success
+
+              User.findByIdAndUpdate(userData._id, {$set: {playlists: playlists}}, {new: true}, function (erro, user) {
+                if (erro) {
+                  console.log(erro)
+                  res.status(500).send('Something failed! Check if you logged before try again.')
+                }
+                let data = {
+                  // Profile esta aqui de forma temporaria, ideal que seja passado numa pagina inicial apos logado, como um dashboard
+                  profile: {
+                    id: user.spotifyId,
+                    name: user.name,
+                    email: user.email,
+                    img_url: user.photo
+                  },
+                  playlists
+                }
+                res.json(data)
+              })
+            })
+          }
         } catch (erro) {
           res.status(401).json('Usuario não autenticado')
         }
@@ -207,6 +220,47 @@ function getNextTracks (nextRequest, tracks, token, callback) {
           getNextTracks(nextRequest, tracks, token, callback)
         } else {
           callback(null, tracks)
+        }
+      } catch (erro) {
+        callback(erro, null)
+      }
+    }
+  )
+}
+
+function getNextPlaylists (nextRequest, playlists, token, callback) {
+  request.get(nextRequest,
+    {
+      'auth': {
+        'bearer': token
+      }
+    },
+    function (error, response, body) {
+      if (error) {
+        console.log(error)
+        callback(error, null)
+      }
+      try {
+        let data = JSON.parse(body)
+        playlists = playlists.concat(
+          data.items.map(function (item) {
+            let playlist = {
+              id: item.id,
+              url: item.external_urls.spotify,
+              images: item.images,
+              name: item.name,
+              tracks: item.tracks,
+              owner: {id: item.owner.id, name: item.owner.name}
+            }
+            return playlist
+          })
+        )
+
+        nextRequest = data.next
+        if (nextRequest) {
+          getNextTracks(nextRequest, playlists, token, callback)
+        } else {
+          callback(null, playlists)
         }
       } catch (erro) {
         callback(erro, null)
