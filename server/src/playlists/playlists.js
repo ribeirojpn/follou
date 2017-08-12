@@ -203,7 +203,6 @@ function getNextTracks (nextRequest, tracks, token, callback) {
         )
 
         nextRequest = data.next
-        console.log('got: ', tracks.length)
         if (nextRequest) {
           getNextTracks(nextRequest, tracks, token, callback)
         } else {
