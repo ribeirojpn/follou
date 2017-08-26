@@ -9,8 +9,7 @@ class Footer extends Component {
           <p className='text-center'>
             Made with <i className='fa fa-heart' aria-hidden='true' /> by <a href='https://twitter.com/ribeirojpn'>@RibeiroJPN</a>
             <br />
-            Alpha v0.4.2.170806
-            (numero qualquer pra deixar claro que ainda ta bugado)
+            Alpha v0.4.2.170826
           </p>
         </div>
       </footer>

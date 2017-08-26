@@ -6,7 +6,10 @@ class NavBar extends Component {
     let menuContent
     if (this.props.isConnected) {
       menuContent = (
-        <div className='navbar-text navbar-right'><a className='navbar-link' href='/logout'>Logout</a></div>
+        <ul className='nav navbar-nav navbar-text navbar-right'>
+          <li><a className='navbar-link' href='/playlists'>Playlists</a></li>
+          <li><a className='navbar-link' href='/logout'>Logout</a></li>
+        </ul>
       )
     } else {
       menuContent = (

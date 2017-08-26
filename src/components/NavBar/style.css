@@ -5,3 +5,12 @@
 .navbar-inverse .navbar-brand {
   color: rgb(210, 210, 210);
 }
+
+.navbar-text {
+  margin-top: 0px;
+}
+@media screen and (max-width: 768px) {
+  .nav>li {
+    float: left;
+  }
+}
