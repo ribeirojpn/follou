@@ -23,13 +23,23 @@
 
 .title {
     padding: 15px;
-    text-align: center;
 }
 
 .playlist {
     padding: 6px 6px;
     float: left;
     width: 24.99999%;
+}
+
+.playlist .box .title p {
+    overflow: hidden;
+    margin: 0;
+    display: -webkit-box;
+    max-height: 20px;
+    -webkit-line-clamp: 1;
+    text-align: -webkit-center;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
 }
 
 @media only screen and (max-width: 1200px){
