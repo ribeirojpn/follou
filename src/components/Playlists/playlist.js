@@ -12,7 +12,7 @@ class Playlist extends Component {
       <div className='playlist'>
         <div className='box'>
           <a href={`/playlist?id=${playlist.id}&user=${playlist.owner.id}`}>
-            <img src={imgUrl} width='270px' height='270px' />
+            <img src={imgUrl} width='270px' height='270px' alt='playlist' />
             <div className='title'><p>{playlist.name}</p></div>
           </a>
         </div>
