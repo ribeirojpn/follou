@@ -1,5 +1,9 @@
+.navbar {
+  max-height: 51px;
+}
+
 .navbar-follou {
-  background-color: #181818;
+  background-color: #141414;
   border-color: rgba(0, 0, 0, 0);
 }
 .navbar-inverse .navbar-brand {

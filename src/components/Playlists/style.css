@@ -42,6 +42,9 @@
     -webkit-box-orient: vertical;
 }
 
+.playlists .content .container h1 {
+    margin-bottom: 30px
+}
 @media only screen and (max-width: 1200px){
     .playlist {
         width: 33.33333%;

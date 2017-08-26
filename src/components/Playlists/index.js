@@ -43,7 +43,7 @@ class Playlists extends Component {
         <NavBar isConnected={this.state.isConnected} />
         <div className='content'>
           <div className='container'>
-            <h2 className='text-center'>Suas playlists</h2>
+            <h1 className='text-center'>Playlists</h1>
             {listItems}
           </div>
         </div>
