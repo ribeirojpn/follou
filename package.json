@@ -45,7 +45,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test:client": "react-scripts test --env=jsdom",
-    "test": "jest",
+    "test": "jest --forceExit",
     "eject": "react-scripts eject",
     "heroku": "yarn run build && yarn run server"
   },
