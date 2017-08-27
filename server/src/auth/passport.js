@@ -4,8 +4,6 @@ import mongoose from 'mongoose'
 import userModel from './../user/model'
 import url from 'url'
 import urlServer from './../lib/urlHelper'
-import dotenv from 'dotenv'
-dotenv.config()
 
 const SpotifyStrategy = PassportSpotify.Strategy
 

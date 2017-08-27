@@ -1,6 +1,4 @@
 import url from 'url'
-import dotenv from 'dotenv'
-dotenv.config()
 
 let urlServer
 if (process.env.HOST.startsWith('follou')) {

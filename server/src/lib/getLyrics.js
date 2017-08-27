@@ -1,9 +1,7 @@
 import request from 'request'
 import async from 'async'
 import { AllHtmlEntities as Entities } from 'html-entities'
-import dotenv from 'dotenv'
 import redisClient from './../config/redis'
-dotenv.config()
 const entities = new Entities()
 
 // check this with websockets
