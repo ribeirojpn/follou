@@ -17,7 +17,7 @@
 }
 
 .title {
-    padding: 15px;
+    padding: 15px 10px;
     max-width: 15.4vw;
 }
 
@@ -32,13 +32,13 @@
     display: -webkit-box;
     max-height: 20px;
     -webkit-line-clamp: 1;
-    text-align: -webkit-center;
+    /* text-align: -webkit-center; */
     text-overflow: ellipsis;
     -webkit-box-orient: vertical;
 }
 
 .playlists .content h1 {
-    margin-bottom: 30px
+    margin-bottom: 4vh;
 }
 
 @media only screen and (max-width: 1540px){
@@ -48,7 +48,6 @@
     }
     
     .title {
-        padding: 15px;
         max-width: 18.4vw;
     }
 }
@@ -60,7 +59,6 @@
     }
     
     .title {
-        padding: 15px;
         max-width: 22.8vw;
     }
 }
@@ -72,7 +70,6 @@
     }
     
     .title {
-        padding: 15px;
         max-width: 29.8vw;
     }
 }
@@ -84,18 +81,18 @@
     }
     
     .title {
-        padding: 15px;
+        padding: 15px 15px;
         max-width: 43.1vw;
     }
 }
 @media only screen and (max-width: 500px){
     .box a img {
-        width: 100vw;
-        height: 100vw;
+        width: 90vw;
+        height: 90vw;
     }
     
     .title {
-        padding: 15px;
-        max-width: 100vw;
+        padding: 15px 15px;
+        max-width: 90vw;
     }
 }
