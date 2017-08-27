@@ -4,7 +4,12 @@ import './style.css'
 class NavBar extends Component {
   render () {
     let menuContent
-    if (this.props.isConnected) {
+    if (this.props.notFound) {
+      menuContent = (
+        <ul className='nav navbar-nav navbar-text navbar-right'>
+        </ul>
+      )
+    } else if (this.props.isConnected) {
       menuContent = (
         <ul className='nav navbar-nav navbar-text navbar-right'>
           <li><a className='navbar-link' href='/playlists'>Playlists</a></li>
@@ -13,7 +18,9 @@ class NavBar extends Component {
       )
     } else {
       menuContent = (
-        <div className='navbar-text navbar-right'><a className='navbar-link' href='/'>Login</a></div>
+        <ul className='nav navbar-nav navbar-text navbar-right'>
+          <li><a className='navbar-link' href='/'>Login</a></li>
+        </ul>
       )
     }
 

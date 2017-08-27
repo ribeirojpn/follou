@@ -6,8 +6,8 @@ class NotFound extends Component {
   render () {
     return (
       <div className='not-found text-center'>
-        <NavBar />
-        <div className="container">
+        <NavBar notFound />
+        <div className='container'>
           <h1>
           404 <small>Not Found :(</small>
           </h1>
@@ -27,6 +27,7 @@ class NotFound extends Component {
               </p>
             </div>
           </div>
+          <h3><a href='/playlists'>Voltar</a></h3>
         </div>
       </div>
     )
