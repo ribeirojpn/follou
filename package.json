@@ -37,12 +37,19 @@
     "redis": "^2.8.0",
     "request": "^2.80.0"
   },
+  "jest": {
+    "transform": {".*": "<rootDir>/node_modules/babel-jest"}
+  },
   "scripts": {
     "server": "./node_modules/.bin/babel-node server",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "test:server": "jest",
     "eject": "react-scripts eject",
     "heroku": "yarn run build && yarn run server"
+  },
+  "devDependencies": {
+    "supertest": "^3.0.0"
   }
 }

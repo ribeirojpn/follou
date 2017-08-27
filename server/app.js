@@ -11,13 +11,16 @@ import bodyParser from 'body-parser'
 import passportConfig from './src/auth/passport'
 import authRoutes from './src/auth/routes'
 import playlistsRoutes from './src/playlists/routes'
+import tracksRoutes from './src/tracks/routes'
 
 dotenv.config()
 database(process.env.MONGODB_URI || 'mongodb://localhost/plfollowers')
 
 const app = express()
 
-app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'))
+if (process.env.NODE_ENV !== 'test') {
+  app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'))
+}
 
 app.set('port', process.env.PORT || 3000)
 app.use(express.static(path.resolve(__dirname, '..', 'build')))
@@ -28,6 +31,7 @@ app.use(passport.initialize())
 
 authRoutes(app)
 playlistsRoutes(app)
+tracksRoutes(app)
 passportConfig()
 
 app.get('*', function (req, res) {
