@@ -6,8 +6,7 @@ class NavBar extends Component {
     let menuContent
     if (this.props.notFound) {
       menuContent = (
-        <ul className='nav navbar-nav navbar-text navbar-right'>
-        </ul>
+        <ul className='nav navbar-nav navbar-text navbar-right' />
       )
     } else if (this.props.isConnected) {
       menuContent = (
@@ -26,7 +25,7 @@ class NavBar extends Component {
 
     return (
       <nav className='navbar navbar-inverse navbar-fixed-top navbar-follou'>
-        <div className='container'>
+        <div className='container-fluid'>
           <div className='navbar-header'>
             <a href='/' className='navbar-brand follou-logo'>Follou</a>
           </div>

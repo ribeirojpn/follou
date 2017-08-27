@@ -1,10 +1,4 @@
 .box {
-    border: 1px solid #181818;
-    background-color: #262626;
-}
-
-.box:hover {
-    border: 1px solid #262626;
     background-color: #262626;
 }
 
@@ -14,21 +8,22 @@
 }
 .box a:hover {
     text-decoration: none;
-    color: #DEDEDE;
+    color: #E7E7E7;
 }
 
 .box a img {
-    width: 100%;
+    width: 15.4vw;
+    height: 15.4vw;
 }
 
 .title {
     padding: 15px;
+    max-width: 15.4vw;
 }
 
 .playlist {
-    padding: 6px 6px;
+    padding: 6px;
     float: left;
-    width: 24.99999%;
 }
 
 .playlist .box .title p {
@@ -42,25 +37,65 @@
     -webkit-box-orient: vertical;
 }
 
-.playlists .content .container h1 {
+.playlists .content h1 {
     margin-bottom: 30px
 }
-@media only screen and (max-width: 1200px){
-    .playlist {
-        width: 33.33333%;
-        margin: 6px 0;
+
+@media only screen and (max-width: 1540px){
+    .box a img {
+        width: 18.4vw;
+        height: 18.4vw;
+    }
+    
+    .title {
+        padding: 15px;
+        max-width: 18.4vw;
     }
 }
 
-@media only screen and (max-width: 750px){
-    .playlist {
-        width: 49.99999%;
-        margin: 6px 0;
+@media only screen and (max-width: 1315px){
+    .box a img {
+        width: 22.8vw;
+        height: 22.8vw;
+    }
+    
+    .title {
+        padding: 15px;
+        max-width: 22.8vw;
     }
 }
 
+@media only screen and (max-width: 1060px){
+    .box a img {
+        width: 29.8vw;
+        height: 29.8vw;
+    }
+    
+    .title {
+        padding: 15px;
+        max-width: 29.8vw;
+    }
+}
+
+@media only screen and (max-width: 765px){
+    .box a img {
+        width: 43.1vw;
+        height: 43.1vw;
+    }
+    
+    .title {
+        padding: 15px;
+        max-width: 43.1vw;
+    }
+}
 @media only screen and (max-width: 500px){
-    .playlist {
-        width: 100%;
+    .box a img {
+        width: 100vw;
+        height: 100vw;
+    }
+    
+    .title {
+        padding: 15px;
+        max-width: 100vw;
     }
 }
