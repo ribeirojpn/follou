@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - "node"
+  - "7"
+before_script:
+  - npm install -g jest
+  - cp .env-sample .env
+  - mongo plfollowers-test --eval 'db.addUser("travis", "test");'
+services: 
+  - mongodb
+  - redis-server
+env:
+  - REDIS_URL=redis://localhost:6379
